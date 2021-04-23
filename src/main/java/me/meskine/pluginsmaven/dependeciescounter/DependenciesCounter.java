@@ -1,5 +1,8 @@
 package me.meskine.pluginsmaven.dependeciescounter;
 
+import java.util.List;
+
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -14,10 +17,18 @@ public class DependenciesCounter extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", required = true, readonly = true)
 	MavenProject project;
 
+	@Parameter(property = "scope")
+	private String scope;
+
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		long dependencies = project.getDependencies().stream().count();
-		getLog().info("Number of dependencies : " + dependencies);
+		@SuppressWarnings("unchecked")
+		List<Dependency> dependencies = project.getDependencies();
+		long dependenciesCount = dependencies.stream().filter((Dependency dep) -> {
+			return (scope == null || scope.isEmpty()) || scope.equals(dep.getScope());
+		}).count();
+		getLog().info(
+				String.format("Number of dependencies of scope '%s' ---> %d", scope.toUpperCase(), dependenciesCount));
 	}
 
 }
