@@ -11,6 +11,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
+/**
+ * 
+ * @author wmeskine
+ *
+ */
 @Mojo(name = "DependenciesCounter", defaultPhase = LifecyclePhase.COMPILE)
 public class DependenciesCounter extends AbstractMojo {
 
