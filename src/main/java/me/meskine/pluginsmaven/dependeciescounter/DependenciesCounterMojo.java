@@ -17,7 +17,7 @@ import org.apache.maven.project.MavenProject;
  *
  */
 @Mojo(name = "DependenciesCounter", defaultPhase = LifecyclePhase.COMPILE)
-public class DependenciesCounter extends AbstractMojo {
+public class DependenciesCounterMojo extends AbstractMojo {
 
 	@Parameter(defaultValue = "${project}", required = true, readonly = true)
 	MavenProject project;
